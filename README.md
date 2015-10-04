@@ -17,7 +17,9 @@ Military Combat Themed Card Game
   1. ...selects a starting location from their deck and places it facedown in the Play-Area
   1. ...shuffles their deck
   1. ...draws {10?} cards to their hand
-1. Flip a coin to determine Initiative
+ 1. Determine the player who starts with Initiative (soin flip, die roll, etc.)
+ 1. Each player flips over the land that was previously selected
+
 __Notes:__
  * Use a token to keep track of which player has Initiative
  * Use dice to keep track of Command Points by Round
