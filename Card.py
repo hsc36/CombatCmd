@@ -1,63 +1,45 @@
 # Card
 class Card:
 	'The basic component of the game'
-	id_code = ''	# Card Specific ID (based on Title/Subtitle/Set)
-	set_era = ''	# Card Set/Era
-	title = ''	# Card Title
-	subtitle = '' # Card Subtitle
-	type_name = ''	# Card Type
-	effect = '' # @NOTE: Need to extract line(s) of code from JSON database
-	
-	def __init__(self, id_code, set_era, title, subtitle, set_era):
-		self.id_code = id_code
-		self.set_era = set_era
-		self.title = title
-		self.subtitle = subtitle
-		self.type_name = type_name
-		self.effect = effect
+	def __init__(self, id_code, set_era, title, subtitle, type_name, effect):
+		self.id_code = id_code	# Card Specific ID (based on Title/Subtitle/Set)
+		self.set_era = set_era	# Card Set/Era
+		self.title = title	# Card Title
+		self.subtitle = subtitle	# Card Subtitle
+		self.type_name = type_name	# Card Type
+		self.effect = effect	# @NOTE: Need to extract line(s) of code from JSON database
 
 ## Location
 class Location(Card):
 	'Locations for staging Units and building up Supply'
-	storage = 0	# Supply Storage Capacity
-	facility = 0	# Unit Facility Size
-
-	def __init__(storage, facility):
-		Cards.__init__(self, id_code, set_era, title, subtitle, set_era):
-		self.storage = storage
-		self.facility = facility
+	def __init__(self, id_code, set_era, title, subtitle, type_name, effect, storage, facility):
+		Card.__init__(self, id_code, set_era, title, subtitle, type_name, effect)
+		self.storage = storage	# Supply Storage Capacity
+		self.facility = facility	# Unit Facility Size
 
 ## Unit
 class Unit(Card):
 	'Units for engaging in Combat'
-	size = 0	# Uses Facilities
-	supply_req = 0	# Uses Supplies
-	attack = 0	# Combat Damage Inflicted
-	defense = 0	# Combat Damage Required to Destroy this Unit
-
-	def __init__(size, supply_req, attack, defense):
-		Cards.__init__(self, id_code, set_era, title, subtitle, set_era):
-		self.size = size
-		self.supply_req = supply_req
-		self.attack = attack
-		self.defense = defense
+	def __init__(self, id_code, set_era, title, subtitle, type_name, effect, size, supply_req, soft_attack, hard_attack, defense, is_hard_target):
+		Card.__init__(self, id_code, set_era, title, subtitle, type_name, effect)
+		self.size = size	# Uses Facilities
+		self.supply_req = supply_req	# Uses Supplies
+		self.soft_attack = soft_attack	# Soft Target Combat Damage Inflicted
+		self.hard_attack = hard_attack	# Hard Target Combat Damage Inflicted
+		self.defense = defense	# Combat Damage Required to Destroy this Unit
+		self.is_hard_target = is_hard_target	# Attacker inflicts daage of a... False = Soft Target, True = Hard Target
 
 ## Supply
 class Supply(Card):
 	'Supplies for supporting Units'
-	size = 0	# Uses Storage
-	supply = 0	# Supplies for Units
-
-	def __init__(size, supply):
-		Cards.__init__(self, id_code, set_era, title, subtitle, set_era):
-		self.size = size
-		self.supply = supply
+	def __init__(self, id_code, set_era, title, subtitle, type_name, effect, size, supply):
+		Card.__init__(self, id_code, set_era, title, subtitle, type_name, effect)
+		self.size = size	# Uses Storage
+		self.supply = supply	# Supplies for Units
 
 ## Order
 class Order(Card):
 	'Adds bonuses and effects'
-	command = 0	# Cost of giving Orders
-
-	def __init__(command):
-		Cards.__init__(self, id_code, set_era, title, subtitle, set_era):
-		self.command = command
+	def __init__(self, id_code, set_era, title, subtitle, type_name, effect, command):
+		Card.__init__(self, id_code, set_era, title, subtitle, type_name, effect)
+		self.command = command	# Cost of giving Orders
