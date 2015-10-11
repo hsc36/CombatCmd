@@ -1,0 +1,2 @@
+Contains a JSON file for each set of cards that is released.
+Each file will list each individual card and all applicable information for instantiating it.
