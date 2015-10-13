@@ -1,7 +1,11 @@
+from abc import ABCMeta, abstractmethod
+
 # Card
 class Card(object):
 
-	'The basic component of the game'
+	'The abstract component of the game'
+
+	__metaclass__ = ABCMeta
 
 	def __init__(self, id_code, set_era, title, subtitle, type_name, effect):
 		self.id_code = id_code	# Card Specific ID (based on Title/Subtitle/Set)
@@ -17,6 +21,7 @@ class Card(object):
 	def __str__(self):
 		return type(self).__name__ + '(' + ', '.join('%s: %s' % (k,v) for (k,v) in self.__dict__.iteritems()) + ')'
 
+	@abstractmethod
 	def list_details(self):
 		return [
 			('Set', self.set_era),
