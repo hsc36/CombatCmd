@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+import jsonpickle as pickle
 
 # Card
 class Card(object):
@@ -16,10 +17,10 @@ class Card(object):
 		self.effect = effect	# @NOTE: Need to extract line(s) of code from JSON database
 
 	def __repr__(self):
-		return '{' + type(self).__name__ + ': ' + str(self.__dict__) + '}'
+		return '<' + str(type(self).__name__) + ': ' + ', '.join('%s=%s' % (k,v) for (k,v) in self.__dict__.iteritems()) + '>'
 
 	def __str__(self):
-		return type(self).__name__ + '(' + ', '.join('%s: %s' % (k,v) for (k,v) in self.__dict__.iteritems()) + ')'
+		return type(self).__name__ + '(' + ', '.join('%s=%s' % (k,v) for (k,v) in self.__dict__.iteritems()) + ')'
 
 	@abstractmethod
 	def list_details(self):
@@ -29,6 +30,22 @@ class Card(object):
 			('Subtitle', self.subtitle),
 			('Type', self.type_name),
 			('Effect', self.effect)]
+
+	# Load a Card, given its ID and the full dictionary of cards
+	@abstractmethod
+	def load(self, id_code, cards_dict):
+		return pickled.decode(cards_dict[id_code])
+
+	# Load a Card, given its particular sub-dictionary
+	@abstractmethod
+	def load(self, card_dict):
+		return pickled.decode(card_dict)
+
+	@abstractmethod
+	def save(self):
+		# JSONPickle the Card
+		# Return the Card
+		pass
 
 ## Location
 class Location(Card):
@@ -40,7 +57,6 @@ class Location(Card):
 		self.storage = storage	# Supply Storage Capacity
 		self.facility = facility	# Unit Facility Size
 	
-	# @Override
 	def list_details(self):
 		return super(Location, self).list_details() + [
 			('Storage', self.storage),
@@ -60,9 +76,8 @@ class Unit(Card):
 		self.defense = defense	# Combat Damage Required to Destroy this Unit
 		self.is_hard_target = is_hard_target	# Attacker inflicts daage of a... False = Soft Target, True = Hard Target
 
-	# @Override
 	def list_details(self):
-		return super(Location, self).list_details() + [
+		return super(Unit, self).list_details() + [
 			('Size', self.storage),
 			('Supply Requirement', self.supply_req),
 			('Soft Attack', self.soft_attack),
@@ -80,9 +95,9 @@ class Supply(Card):
 		self.size = size	# Uses Storage
 		self.supply = supply	# Supplies for Units
 
-		# @Override
+
 	def list_details(self):
-		return super(Location, self).list_details() + [
+		return super(Supply, self).list_details() + [
 			('Size', self.size),
 			('Supply', self.supply)]
 
@@ -95,7 +110,6 @@ class Order(Card):
 		Card.__init__(self, id_code, set_era, title, subtitle, type_name, effect)
 		self.command = command	# Cost of giving Orders
 
-	# @Override
 	def list_details(self):
-		return super(Location, self).list_details() + [
+		return super(Order, self).list_details() + [
 			('Command', self.command)]
