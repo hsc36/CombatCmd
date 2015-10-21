@@ -9,18 +9,23 @@ class Session(object):
 		self.__start_time = dt.utcnow()
 
 
-	# Universal diplay function, for all STDOUT
-	def display(*args):
-		for i, x in enumerate(args):
+	def display_numbered_list(self, l):
+		for i, x in enumerate(l):
 			print str(i) + '. ' + x
 
-	def get_player():
+	def display_card_details(self, details):
+		for detail in details:
+			print str(detail[0]) + ': ' + str(detail[1])
+
+	def get_player(self):
+		pass
 		# Create or Load
 		# Get Player Name
 		# Get a Deck
 		# Save Player and Deck(s)
 
-	def get_deck(player):
+	def get_deck(self, player):
+		pass
 		# Load Player
 		# Load or Create Deck
 		# - Modify a Saved Deck > Load the Deck
@@ -28,7 +33,8 @@ class Session(object):
 		# Save the Deck
 		# Save the Player
 
-	def play_game(*player):
+	def play_game(self, *player):
+		pass
 		# Each Player Chooses a Deck
 		# Determine Turn Order
 		# Game Setup Steps
